@@ -50,3 +50,186 @@ h6 {
 #__next {
     isolation: isolate;
 }
+
+/* Global variables */
+:root {
+    /* Colours */
+
+    /* Fonts */
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --font-mono: Menlo, Monaco, 'Lucida Console', 'Liberation Mono',
+        'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+
+    /* Font sizing */
+    --font-base: 1rem;
+    --scale: 1.125;
+
+    --fs-p: var(--font-base);
+    --fs-xs: calc(var(--font-base) / var(--scale));
+    --fs-h6: calc(var(--font-base) * var(--scale));
+    --fs-h5: calc(var(--fs-h6) * var(--scale));
+    --fs-h4: calc(var(--fs-h5) * var(--scale));
+    --fs-h3: calc(var(--fs-h4) * var(--scale));
+    --fs-h2: calc(var(--fs-h3) * var(--scale));
+    --fs-h1: calc(var(--fs-h2) * var(--scale));
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: var(--fs-h6);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+h6,
+h5,
+h4,
+h3,
+h2,
+h1 {
+    font-weight: 700;
+    margin: var(--font-base) 0;
+    line-height: 1.2em;
+}
+h6 {
+    font-size: var(--fs-h6);
+}
+h5 {
+    font-size: var(--fs-h5);
+}
+h4 {
+    font-size: var(--fs-h4);
+}
+h3 {
+    font-size: var(--fs-h3);
+}
+h2 {
+    font-size: var(--fs-h2);
+}
+h1 {
+    font-size: var(--fs-h1);
+}
+
+code {
+    font-family: var(--font-mono);
+    font-size: var(--fs-p);
+}
+
+pre {
+    padding: 1.5rem 1rem;
+    border-radius: 0.25rem;
+    line-height: 1.3;
+}
+
+/* Defining a content grid */
+.content-grid {
+    --padding-min: 1rem;
+    --wide-max-width: 60rem;
+    --narrow-max-width: 42rem;
+
+    --wide-size: calc((var(--wide-max-width) - var(--narrow-max-width)) / 2);
+
+    display: grid;
+    grid-template-columns:
+        [bleed-start]
+        minmax(var(--padding-min), 1fr)
+        [wide-start]
+        minmax(0, var(--wide-size))
+        [narrow-start]
+        min(100% - (var(--padding-min)) * 2, var(--narrow-max-width))
+        [narrow-end]
+        minmax(0, var(--wide-size))
+        [wide-end]
+        minmax(var(--padding-min), 1fr)
+        [bleed-end];
+}
+
+.content-grid > :not(.bleed, .narrow) {
+    grid-column: wide;
+}
+
+.content-grid > .narrow {
+    grid-column: narrow;
+}
+
+.content-grid > .bleed {
+    grid-column: bleed;
+
+    display: grid;
+    grid-template-columns: inherit;
+}
+
+/* Long form content styling */
+article.post-content > * {
+    grid-column: narrow !important;
+}
+
+.post-content {
+    & p {
+        margin-block-end: 1.5em;
+    }
+
+    & strong {
+        font-weight: 600;
+    }
+
+    & em {
+        font-style: oblique;
+    }
+
+    & p + h2,
+    h3 {
+        margin-top: 1.5em;
+    }
+
+    & ol,
+    ul {
+        padding-inline-start: 2rem;
+        margin-block-start: -0.5em;
+        margin-block-end: 1.5em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+
+    & li {
+        line-height: 1.5em;
+        margin-block-end: 0.5em;
+    }
+
+    & p:has(img) {
+        grid-column: wide !important;
+    }
+
+    & figcaption {
+        font-size: var(--fs-xs);
+    }
+
+    & blockquote {
+        font-style: oblique;
+        margin: 1.5rem 0;
+        padding: 0.5rem 2rem;
+        background-color: lightblue;
+        border-left: 0.25rem solid blue;
+    }
+
+    & :not(pre) > code {
+        color: red;
+        background-color: antiquewhite;
+        border: 1px solid antiquewhite;
+        border-radius: 4px;
+        padding: 0 4px;
+    }
+
+    & pre {
+        margin-block-end: 1.5em;
+    }
+}

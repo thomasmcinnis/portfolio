@@ -4,6 +4,7 @@ pubDate: 2024-02-02
 description: A neat way to combine two design patterns
 tags: ['Javascript', 'Design patterns']
 isDraft: true
+slug: decorator-singleton-pattern
 ---
 
 Recently I was completing the To-Do exercise from [The Odin Project](https://www.theodinproject.com) Javascript course and was tackling how to organise my code. The course had just dived into JS Classes and OOP concepts, so I was inclined to try to explore those ideas, especially limiting the direction and scope of messages passing between objects, as well as leveraging object inheritance.
@@ -154,7 +155,7 @@ As foreign as OOP can _feel_ in Javascript I found cherry picking several OOP id
 
 If you google singletons you often get sweeping statements that they are an anti-pattern to be avoided. However I think merging the singleton and decorator pattern here helped create an elegant, highly modular, extendable system which very clearly designates these objects as the sole interface through which interaction between components should happen in the app.
 
-I am willing to bet my opinion will change. Let me know what you think. I would love to learn other solutions which are either simpler and clearer, or perhaps more robustly enforcing the singleton pattern without adding a tonne of boilerplate.
+**I am willing to bet my opinion will change.** Let me know what you think. I would love to learn other solutions which are either simpler and clearer, or perhaps more robustly enforcing the singleton pattern without adding a tonne of boilerplate.
 
 Andrii Drozdov's article includes some additional singleton creation approaches I do not yet understand such as the _Bind Singleton_ and _Constructor Singleton_. As he puts it:
 
