@@ -37,12 +37,12 @@ This chart is massively simplified, but describes the relevant base classes:
 
 -   `ListManager` would be the base for `TaskListManager`, and `CategoryListManager`
 -   `Item` would be the base for `Task` and `Category`, and would be passed in to their respective list manager class
--   `DisplayManager`would be a base for child view classes which could subscribe individually to the related list manager for changes requiring UI re-renders
+-   `DisplayManager` would be a base for child view classes which could subscribe individually to the related list manager for changes requiring UI re-renders
 -   `StoreManager` would not have any child classes as it can just be passed the related list key to access the appropriate storage
 
 ## Making multiple singletons?
 
-Here is a wrinkle. I wanted multiple list managers; a singleton list manager for `Task` items, and another singleton list manager for `Category`items. But I _also_ wanted to use inheritance because both managers should have almost identical implementation. _If you follow traditional implementation of a singleton it literally prevents inheritance._
+Here is a wrinkle. I wanted multiple list managers; a singleton list manager for `Task` items, and another singleton list manager for `Category` items. But I _also_ wanted to use inheritance because both managers should have almost identical implementation. _If you follow traditional implementation of a singleton it literally prevents inheritance._
 
 -   Adding an instance checker to the constructor as you see in most examples of singletons wouldn't work unless I added them to the constructor for each inherited class separately. It's not that I am averse to repeating code -- I am not a DRY absolutist -- but it really struck me as ugly. Surely I could find something nicer.
 -   I could also have foregone inheritance altogether, creating entirely seperate `TaskList` and `CategoryList` classes, but again my goal in this project was to leverage inheritance. Plus I'd already made that lovely flow design!

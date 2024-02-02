@@ -1,8 +1,38 @@
 ---
+import BlogList from '../components/BlogList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = 'Thomas McInnis';
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <h2>My awesome blog subtitle</h2>
+    <section class='intro'>
+        <p>Hi from Sydney, Australia.</p>
+        <p>
+            <h1 class='inline'>I am Thomas McInnis</h1>, co-founder of <a
+                href='https://www.metric.coach'
+                target='_blank'
+            >
+                Metric VBT</a
+            >. Drop me a message or find me on <a
+                href='https://www.twitter.com/tommy_mcinnis'
+                target='_blank'>Twitter</a
+            > or <a
+                href='https://www.linkedin.com/in/thomasmcinnis/'
+                target='_blank'>LinkedIn</a
+            >.
+        </p>
+    </section>
+    <section class='contact'>
+        <h2 class='h5'>Contact</h2>
+        <p>hey@thomasmcinnis.com</p>
+    </section>
+    <section class='posts'>
+        <BlogList />
+    </section>
 </BaseLayout>
+
+<style>
+    h1.inline {
+        display: inline-block;
+    }
+</style>
