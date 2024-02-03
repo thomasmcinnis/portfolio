@@ -1,5 +1,5 @@
 ---
-title: The decorator singleton pattern... pattern
+title: The Javascript decorator-singleton pattern... pattern
 pubDate: 2024-02-02
 description: A neat way to combine two design patterns
 tags: ['Javascript', 'Design patterns']
@@ -21,7 +21,7 @@ If you haven't come across it before, the [_singleton pattern_](https://javascri
 
 In the Astro implementation there is a singleton class called `ProgressStore` which essentially acts as an API for any components which need to know about or update the user's progress through the tutorial. The Astro code I linked above is well documented and describes the lifecycle in full.
 
-(Additionally the Astro version includes the [_observer pattern_](https://javascriptpatterns.vercel.app/patterns/design-patterns/observer-pattern), also known as _pub-sub_. I won't go into that here but I implement the same thing in my To-Do app.)
+(Additionally the Astro version includes the [_observer pattern_](https://javascriptpatterns.vercel.app/patterns/design-patterns/observer-pattern), also known as _pub-sub_. I won't go into that here but I implemented the same thing in my To-Do app.)
 
 ## Spec'ing my To-Do implementation
 

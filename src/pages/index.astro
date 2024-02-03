@@ -5,15 +5,16 @@ const pageTitle = 'Thomas McInnis';
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <section class='intro'>
-        <p>Hi from Sydney, Australia.</p>
+    <section class='entry'>
+        <h1 class='h1'>Hi, I'm Thomas</h1>
         <p>
-            <h1 class='inline'>I am Thomas McInnis</h1>, co-founder of <a
-                href='https://www.metric.coach'
-                target='_blank'
-            >
-                Metric VBT</a
-            >. Drop me a message or find me on <a
+            I am the co-founder of <a
+                href='https://www.metric.coach target='
+                _blank'>Metric VBT</a
+            >.
+        </p>
+        <p>
+            Drop me a message on <a
                 href='https://www.twitter.com/tommy_mcinnis'
                 target='_blank'>Twitter</a
             > or <a
@@ -23,16 +24,11 @@ const pageTitle = 'Thomas McInnis';
         </p>
     </section>
     <section class='contact'>
-        <h2 class='h5'>Contact</h2>
+        <h2 class='h4'>Contact</h2>
         <p>hey@thomasmcinnis.com</p>
     </section>
     <section class='posts'>
+        <h2 class='h4'>Blog</h2>
         <BlogList />
     </section>
 </BaseLayout>
-
-<style>
-    h1.inline {
-        display: inline-block;
-    }
-</style>

@@ -50,7 +50,7 @@ select {
     /* Light Mode */
     --bkg--light: var(--_hue-secondary) 25% 95%;
     --txt--light: var(--_hue-primary) 40% 5%;
-    --accent--light: var(--_hue-primary) 40% 50%;
+    --accent--light: var(--_hue-primary) 70% 60%;
     --muted--light: var(--_hue-secondary) 20% 93%;
     /* Dark Mode */
     --bkg--dark: var(--_hue-secondary) 15% 10%;
@@ -142,6 +142,10 @@ li::marker {
     font-weight: 700;
     color: hsl(var(--accent));
     margin-right: 1em;
+}
+
+li:not(:last-child) {
+    margin-block-end: 0.5em;
 }
 
 a {
@@ -288,10 +292,6 @@ article.entry > * {
         margin-block-end: 1.5em;
         margin-inline-start: 0px;
         margin-inline-end: 0px;
-    }
-
-    & li:not(:last-child) {
-        margin-block-end: 0.5em;
     }
 
     & p:has(img) {
