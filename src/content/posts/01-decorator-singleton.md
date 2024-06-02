@@ -35,17 +35,17 @@ In this way all user input passes through the list manager interface. _(It took 
 
 This chart is massively simplified, but describes the relevant base classes:
 
--   `ListManager` would be the base for `TaskListManager`, and `CategoryListManager`
--   `Item` would be the base for `Task` and `Category`, and would be passed in to their respective list manager class
--   `DisplayManager` would be a base for child view classes which could subscribe individually to the related list manager for changes requiring UI re-renders
--   `StoreManager` would not have any child classes as it can just be passed the related list key to access the appropriate storage
+- `ListManager` would be the base for `TaskListManager`, and `CategoryListManager`
+- `Item` would be the base for `Task` and `Category`, and would be passed in to their respective list manager class
+- `DisplayManager` would be a base for child view classes which could subscribe individually to the related list manager for changes requiring UI re-renders
+- `StoreManager` would not have any child classes as it can just be passed the related list key to access the appropriate storage
 
 ## Making multiple singletons?
 
 Here is a wrinkle. I wanted multiple list managers; a singleton list manager for `Task` items, and another singleton list manager for `Category` items. But I _also_ wanted to use inheritance because both managers should have almost identical implementation. _If you follow traditional implementation of a singleton it literally prevents inheritance._
 
--   Adding an instance checker to the constructor as you see in most examples of singletons wouldn't work unless I added them to the constructor for each inherited class separately. It's not that I am averse to repeating code -- I am not a DRY absolutist -- but it really struck me as ugly. Surely I could find something nicer.
--   I could also have foregone inheritance altogether, creating entirely seperate `TaskList` and `CategoryList` classes, but again my goal in this project was to leverage inheritance. Plus I'd already made that lovely flow design!
+- Adding an instance checker to the constructor as you see in most examples of singletons wouldn't work unless I added them to the constructor for each inherited class separately. It's not that I am averse to repeating code -- I am not a DRY absolutist -- but it really struck me as ugly. Surely I could find something nicer.
+- I could also have foregone inheritance altogether, creating entirely seperate `TaskList` and `CategoryList` classes, but again my goal in this project was to leverage inheritance. Plus I'd already made that lovely flow design!
 
 So how do you make multiple singletons from a parent class?
 
@@ -55,11 +55,11 @@ I came across an excellent article on [# 7 ways to create Singleton Pattern in 
 
 ```js
 function decorateSingleton(Class) {
-    Class.instance = new Class();
+  Class.instance = new Class();
 }
 
 class DecoratorSingleton {
-    invoke() {}
+  invoke() {}
 }
 
 decorateSingleton(DecoratorSingleton);
@@ -149,9 +149,9 @@ I also explored the observer/pub-sub pattern so the `ListManager` could notify s
 
 As foreign as OOP can _feel_ in Javascript I found cherry picking several OOP ideas to be beneficial. In this situation the direction of signals through the app which I envisaged in the spec is made very obvious in the code.
 
--   `ListManager` objects are totally decoupled from UI because of the pub-sub capability, and are only loosely coupled with the storage and item objects
--   `Item` objects are totally unaware of their context, and the list which contains them doesn't need to know anything about them other than they have a UID and will have methods for updating and toggling properties.
--   `StoreManager` is also totally unaware of its context
+- `ListManager` objects are totally decoupled from UI because of the pub-sub capability, and are only loosely coupled with the storage and item objects
+- `Item` objects are totally unaware of their context, and the list which contains them doesn't need to know anything about them other than they have a UID and will have methods for updating and toggling properties.
+- `StoreManager` is also totally unaware of its context
 
 If you google singletons you often get sweeping statements that they are an anti-pattern to be avoided. However I think merging the singleton and decorator pattern here helped create an elegant, highly modular, extendable system which very clearly designates these objects as the sole interface through which interaction between components should happen in the app.
 
@@ -161,7 +161,7 @@ Andrii Drozdov's article includes some additional singleton creation approaches 
 
 > Cons:
 >
-> -   Requires deep understanding of Javascript...
->     But still a good academic test for your knowledge of Javascript.
+> - Requires deep understanding of Javascript...
+>   But still a good academic test for your knowledge of Javascript.
 
 Which just means I have more exploration to enjoy!

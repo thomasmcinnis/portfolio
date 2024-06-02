@@ -4,16 +4,16 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-    <article class='content-grid bleed entry'>
-        <h1>{frontmatter.title}</h1>
-        <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
-        <p><em>{frontmatter.description}</em></p>
-        <slot />
-    </article>
+  <article class='content-grid bleed entry'>
+    <h1>{frontmatter.title}</h1>
+    <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
+    <p><em>{frontmatter.description}</em></p>
+    <slot />
+  </article>
 </BaseLayout>
 
 <style>
-    article {
-        margin-bottom: 4rem;
-    }
+  article {
+    margin-bottom: 4rem;
+  }
 </style>

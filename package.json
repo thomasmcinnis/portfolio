@@ -12,5 +12,25 @@
   "dependencies": {
     "@astrojs/mdx": "^3.0.1",
     "astro": "^4.3.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "prettier-plugin-astro": "^0.14.0"
+  },
+  "prettier": {
+    "astroAllowShorthand": true,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ],
+    "plugins": [
+      "prettier-plugin-astro"
+    ]
   }
 }

@@ -13,7 +13,7 @@ This is going to be very bare-bones demo of email and password verification. I w
 
 (I am also doing zero styling, and I won't be implementing any of the parts of a normal Astro project like decent base layouts.)
 
-You should be able to follow along, I will try not to skip any steps. The relevant docs are the source of truth however, make sure to read them! There is a list of references at the end of the guide. 
+You should be able to follow along, I will try not to skip any steps. The relevant docs are the source of truth however, make sure to read them! There is a list of references at the end of the guide.
 
 This guide is intended for someone who has a good handle on how Astro works, but you don't need to know anything about authentication or databases.
 
@@ -21,29 +21,29 @@ Here are the steps we will follow:
 
 1. **Set up the Astro project and install dependencies**
 
-    - Astro DB, Lucia, Astro DB adapter for Lucia, Vercel SSR adapter for Astro
+   - Astro DB, Lucia, Astro DB adapter for Lucia, Vercel SSR adapter for Astro
 
 2. **Create the database tables and test**
 
-    - Set up types for Lucia, add tables to database schema, test the database actually works locally
+   - Set up types for Lucia, add tables to database schema, test the database actually works locally
 
 3. **Build signup and test**
 
-    - Connect the database and Lucia, add middleware, create signup endpoint and test locally
+   - Connect the database and Lucia, add middleware, create signup endpoint and test locally
 
 4. **Push minimal demo to cloud**
 
-    - Link Astro DB to Astro Studio, deploy to Vercel
+   - Link Astro DB to Astro Studio, deploy to Vercel
 
 5. **Add a protected route**
 
-    - Add a `/dashboard` protected page, login and logout endpoints, and deploy again
+   - Add a `/dashboard` protected page, login and logout endpoints, and deploy again
 
 There's a lot to do - let's get going!
 
 ## Create an Astro project and add dependencies
 
-Start by scaffolding a new Astro project with the friendly CLI wizard. 
+Start by scaffolding a new Astro project with the friendly CLI wizard.
 
 ```bash
 npm create astro@latest
@@ -72,9 +72,9 @@ Lucia works with all kinds of databases through adapters. Astro DB doesn't have 
 npm install lucia oslo lucia-adapter-astrodb
 ```
 
-Finally we need to turn our static Astro site into an SSR (server side rendered) project so that we can use Astro api endpoints and have dynamic routing. We will install the Vercel adaptor here as I found it is the most streamlined. 
+Finally we need to turn our static Astro site into an SSR (server side rendered) project so that we can use Astro api endpoints and have dynamic routing. We will install the Vercel adaptor here as I found it is the most streamlined.
 
-*(Cloudflare and Netlify have some complexity for accessing environment variables, and it looks like the default password hashing library for Lucia isn't compatible with Cloudflare workers.)*
+_(Cloudflare and Netlify have some complexity for accessing environment variables, and it looks like the default password hashing library for Lucia isn't compatible with Cloudflare workers.)_
 
 ```bash
 npx astro add vercel
@@ -90,19 +90,19 @@ First make an adjustment to the `astro.config.mjs` in the project root to exclud
 
 ```js
 import { defineConfig } from 'astro/config';
-import db from "@astrojs/db";
+import db from '@astrojs/db';
 
-import vercel from "@astrojs/vercel/serverless";
+import vercel from '@astrojs/vercel/serverless';
 
 export default defineConfig({
   integrations: [db()],
   vite: {
     optimizeDeps: {
-      exclude: ["astro:db", "oslo"]
-    }
+      exclude: ['astro:db', 'oslo'],
+    },
   },
-  output: "server",
-  adapter: vercel()
+  output: 'server',
+  adapter: vercel(),
 });
 ```
 
@@ -110,7 +110,7 @@ export default defineConfig({
 
 Astro DB sets up a database schema in the file `/db/config.ts`. For the purpose of authentication with Lucia we will need to create a `User` and a `Session` table in the schema.
 
-Because we want to implement email and password auth, the `User` table will need fields for `email` and `hashed_passwords`. Note the `email` field in the table must be unique (for obvious reasons), and the `Session` table references sessions to users in the  `User` table by the user `id`.
+Because we want to implement email and password auth, the `User` table will need fields for `email` and `hashed_passwords`. Note the `email` field in the table must be unique (for obvious reasons), and the `Session` table references sessions to users in the `User` table by the user `id`.
 
 ```ts
 import { defineDb, defineTable, column } from 'astro:db';
@@ -119,29 +119,29 @@ const User = defineTable({
   columns: {
     id: column.text({ primaryKey: true }),
     email: column.text({ unique: true }),
-    hashed_password: column.text()
-  }
-})
+    hashed_password: column.text(),
+  },
+});
 
 const Session = defineTable({
   columns: {
     id: column.text({ primaryKey: true }),
     expiresAt: column.date(),
-    userId: column.text({ 
-	    references: () => User.columns.id
-    })
-  }
-})
+    userId: column.text({
+      references: () => User.columns.id,
+    }),
+  },
+});
 
 export default defineDb({
   tables: {
     User,
-    Session
-  }
+    Session,
+  },
 });
 ```
 
-Saving this file will automatically updates the database type definitions in the project. You can see the auto generated file in the project root at `.astro/db-types.d.ts`. 
+Saving this file will automatically updates the database type definitions in the project. You can see the auto generated file in the project root at `.astro/db-types.d.ts`.
 
 ### Testing what we have so far
 
@@ -152,11 +152,11 @@ Astro DB includes a helpful seed file where we can put mock table data for our d
 ```ts
 import { db, User } from 'astro:db';
 
-export default async function() {
-	await db.insert(User).values([
-		{ id: '123456', email: 'test1@email.com', hashed_password: '' },
-		{ id: '234567', email: 'test2@email.com', hashed_password: '' },
-	])
+export default async function () {
+  await db.insert(User).values([
+    { id: '123456', email: 'test1@email.com', hashed_password: '' },
+    { id: '234567', email: 'test2@email.com', hashed_password: '' },
+  ]);
 }
 ```
 
@@ -189,26 +189,26 @@ While we could test writing to the database as well at this point, it doesn't ta
 We need to set up the Lucia library and connect it to our database. I copied the examples from the Lucia docs with minor adjustment for the Astro DB adapter, creating the following file at `src/lib/auth.ts`.
 
 ```ts
-import { Lucia } from "lucia";
-import { AstroDBAdapter } from "lucia-adapter-astrodb";
-import { db, User, Session } from "astro:db";
+import { Lucia } from 'lucia';
+import { AstroDBAdapter } from 'lucia-adapter-astrodb';
+import { db, User, Session } from 'astro:db';
 
-const adapter = new AstroDBAdapter(db, Session, User)
+const adapter = new AstroDBAdapter(db, Session, User);
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
     attributes: {
-      secure: import.meta.env.PROD
-    }
+      secure: import.meta.env.PROD,
+    },
   },
   getUserAttributes: (attributes) => {
     return {
-      email: attributes.email
+      email: attributes.email,
     };
-  }
+  },
 });
 
-declare module "lucia" {
+declare module 'lucia' {
   interface Register {
     Lucia: typeof lucia;
     DatabaseUserAttributes: DatabaseUserAttributes;
@@ -227,24 +227,24 @@ Create a middleware file at `src/middleware.ts` with the contents below. Note we
 (Also check out the note about CSRF.)
 
 ```ts
-import { lucia } from "./lib/auth";
-import { verifyRequestOrigin } from "lucia";
-import { defineMiddleware } from "astro:middleware";
+import { lucia } from './lib/auth';
+import { verifyRequestOrigin } from 'lucia';
+import { defineMiddleware } from 'astro:middleware';
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  if (context.request.method !== "GET") {
-	// NOTE: this first check can be removed if you enable the 
-	// experimental CSRF protection added in Astro 4.5
-	// (https://astro.build/blog/astro-460/#experimental-support-for-csrf-protection)
-    const originHeader = context.request.headers.get("Origin");
-    const hostHeader = context.request.headers.get("Host");
+  if (context.request.method !== 'GET') {
+    // NOTE: this first check can be removed if you enable the
+    // experimental CSRF protection added in Astro 4.5
+    // (https://astro.build/blog/astro-460/#experimental-support-for-csrf-protection)
+    const originHeader = context.request.headers.get('Origin');
+    const hostHeader = context.request.headers.get('Host');
     if (
-	    !originHeader || 
-	    !hostHeader || 
-	    !verifyRequestOrigin(originHeader, [hostHeader])
-	) {
+      !originHeader ||
+      !hostHeader ||
+      !verifyRequestOrigin(originHeader, [hostHeader])
+    ) {
       return new Response(null, {
-        status: 403
+        status: 403,
       });
     }
   }
@@ -259,11 +259,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { session, user } = await lucia.validateSession(sessionId);
   if (session && session.fresh) {
     const sessionCookie = lucia.createSessionCookie(session.id);
-    context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+    context.cookies.set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
   }
   if (!session) {
     const sessionCookie = lucia.createBlankSessionCookie();
-    context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+    context.cookies.set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
   }
   context.locals.session = session;
   context.locals.user = user;
@@ -280,8 +288,8 @@ We need to add types for the Lucia `Session` and `User`. Adjust the `/src/env.d.
 
 declare namespace App {
   interface Locals {
-    session: import("lucia").Session | null;
-    user: import("lucia").User | null;
+    session: import('lucia').Session | null;
+    user: import('lucia').User | null;
   }
 }
 ```
@@ -315,36 +323,36 @@ As you can see the form makes a post request to the matching api endpoint. In As
 Create the first endpoint with a new file `src/pages/api/signup.ts`.
 
 ```ts
-import { lucia } from "../../lib/auth";
-import { generateId } from "lucia";
-import { Argon2id } from "oslo/password";
+import { lucia } from '../../lib/auth';
+import { generateId } from 'lucia';
+import { Argon2id } from 'oslo/password';
 import { db, User } from 'astro:db';
 
-import type { APIContext } from "astro";
+import type { APIContext } from 'astro';
 
 export async function POST(context: APIContext): Promise<Response> {
   const formData = await context.request.formData();
-  const email = (formData.get("email") as string).trim();
-  
+  const email = (formData.get('email') as string).trim();
+
   if (
-    typeof email !== "string" ||
+    typeof email !== 'string' ||
     email.length < 3 ||
     email.length > 255 ||
     !/.+@.+\..+/.test(email)
   ) {
-    return new Response("Invalid email", {
-      status: 400
+    return new Response('Invalid email', {
+      status: 400,
     });
   }
-  const password = formData.get("password");
-  
+  const password = formData.get('password');
+
   if (
-	typeof password !== "string" || 
-	password.length < 6 || 
-	password.length > 255
+    typeof password !== 'string' ||
+    password.length < 6 ||
+    password.length > 255
   ) {
-    return new Response("Invalid password", {
-      status: 400
+    return new Response('Invalid password', {
+      status: 400,
     });
   }
 
@@ -355,14 +363,18 @@ export async function POST(context: APIContext): Promise<Response> {
   await db.insert(User).values({
     id: userId,
     email: email.toLowerCase(),
-    hashed_password: hashedPassword
+    hashed_password: hashedPassword,
   });
 
   const session = await lucia.createSession(userId, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
-  context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+  context.cookies.set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes,
+  );
 
-  return context.redirect("/");
+  return context.redirect('/');
 }
 ```
 
@@ -372,7 +384,7 @@ Thanks to the inclusion of Drizzle ORM with Astro DB this is all really straight
 
 With this endpoint in place, jump over to `localhost:4321/signup` and enter an email and password. If everything is correct you should be redirected back to the homepage where you will see your new user listed in addition to the mock data we started with.
 
-Also check *Cookies* in the *Application* tab in dev tools where you will find a newly generated session cookie created by Lucia. 
+Also check _Cookies_ in the _Application_ tab in dev tools where you will find a newly generated session cookie created by Lucia.
 
 ## Get everything remote
 
@@ -397,7 +409,7 @@ You can now check out the project on the Astro Studio dashboard.
 
 I like to deploy early and often so any issues with production environments get exposed sooner.
 
-Install the Vercel CLI, then run the command to push the project to Vercel. 
+Install the Vercel CLI, then run the command to push the project to Vercel.
 
 ```bash
 # Install the vercel cli globally
@@ -417,9 +429,9 @@ Sign in to vercel.com and head to the newly created project. Tap on **Settings**
 
 Now back in your terminal run the `vercel` command once more and it will deploy the project again. (By default it will deploy to the Preview environment which is fine for our purposes, but you can use the command `vercel --prod` to push it to the Production environment.)
 
-Enjoy the bare-bones demo you just created! Test the form at the `/signup` page with an email and password. 
+Enjoy the bare-bones demo you just created! Test the form at the `/signup` page with an email and password.
 
-This time your actual production database in Astro Studio is updated with the new user in the `User` table. 
+This time your actual production database in Astro Studio is updated with the new user in the `User` table.
 
 Assuming things are working as expected Lucia also handled generating a session token in the `Session` table linked to the fake user you just created, and just like in our local environment we will have a matching browser cookie in dev tools.
 
@@ -462,22 +474,26 @@ Note we also pre-emptively included a logout button which calls a new API route.
 ```ts
 // src/pages/api/logout.ts
 
-import { lucia } from "@lib/auth";
-import type { APIContext } from "astro";
+import { lucia } from '@lib/auth';
+import type { APIContext } from 'astro';
 
 export async function POST(context: APIContext): Promise<Response> {
   if (!context.locals.session) {
     return new Response(null, {
-      status: 401
+      status: 401,
     });
   }
 
   await lucia.invalidateSession(context.locals.session.id);
 
   const sessionCookie = lucia.createBlankSessionCookie();
-  context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+  context.cookies.set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes,
+  );
 
-  return context.redirect("/login");
+  return context.redirect('/login');
 }
 ```
 
@@ -523,64 +539,70 @@ export const prerender = true
 The endpoint for this follows a similar pattern to the signup endpoint, but one thing that should stand out is the use of the `eq` method from `astro:db` so we can query the User table for equivalence and retrieve the existing user.
 
 ```ts
-import { lucia } from "../../lib/auth";
-import { Argon2id } from "oslo/password";
+import { lucia } from '../../lib/auth';
+import { Argon2id } from 'oslo/password';
 import { db, User, eq } from 'astro:db';
-import type { APIContext } from "astro";
+import type { APIContext } from 'astro';
 
 export async function POST(context: APIContext): Promise<Response> {
   const formData = await context.request.formData();
-  const email = (formData.get("email") as string).trim();
+  const email = (formData.get('email') as string).trim();
 
   if (
-    typeof email !== "string" ||
+    typeof email !== 'string' ||
     email.length < 3 ||
     email.length > 255 ||
     !/.+@.+\..+/.test(email)
   ) {
-    return new Response("Invalid email", {
-      status: 400
+    return new Response('Invalid email', {
+      status: 400,
     });
   }
 
-  const password = formData.get("password");
+  const password = formData.get('password');
 
   if (
-    typeof password !== "string" ||
+    typeof password !== 'string' ||
     password.length < 6 ||
     password.length > 255
   ) {
-    return new Response("Invalid password", {
-      status: 400
+    return new Response('Invalid password', {
+      status: 400,
     });
   }
 
   const existingUser = await db
-	  .select()
-	  .from(User)
-	  .where(eq(User.email, email.toLowerCase()))
-	  .get();
+    .select()
+    .from(User)
+    .where(eq(User.email, email.toLowerCase()))
+    .get();
 
   if (!existingUser) {
-    return new Response("Incorrect username or password", {
-      status: 400
+    return new Response('Incorrect username or password', {
+      status: 400,
     });
   }
 
-  const validPassword = await new Argon2id()
-	  .verify(existingUser.hashed_password, password);
+  const validPassword = await new Argon2id().verify(
+    existingUser.hashed_password,
+    password,
+  );
 
   if (!validPassword) {
-    return new Response("Incorrect username or password", {
-      status: 400
+    return new Response('Incorrect username or password', {
+      status: 400,
     });
   }
 
   const session = await lucia.createSession(existingUser.id, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
-  context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+  context.cookies.set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes,
+  );
 
-  return context.redirect("/dashboard");
+  return context.redirect('/dashboard');
 }
 ```
 
@@ -613,15 +635,15 @@ Before calling it a day I need to test the production environment also works as 
 
 Overall I loved the experience of using both Astro DB and Lucia to get this working.
 
-Further work is essential for a full-fledged auth solution in any production app. 
-Check out [The Copenhagen Book](https://thecopenhagenbook.com/) written by the creator of the Lucia library which describes many of the requirements. 
+Further work is essential for a full-fledged auth solution in any production app.
+Check out [The Copenhagen Book](https://thecopenhagenbook.com/) written by the creator of the Lucia library which describes many of the requirements.
 
 I look forward to seeing how Astro DB develops. One thing I would need for my projects is the ability to add team members for databases in Astro Studio.
 
 ### References
 
 - https://lucia-auth.com/
-- https://thecopenhagenbook.com/ 
+- https://thecopenhagenbook.com/
 - https://github.com/lucia-auth/examples/tree/main/astro/username-and-password
 - https://github.com/ElianCodes/lucia-astrodb
 - https://github.com/pilcrowOnPaper/lucia-adapter-astrodb
@@ -629,5 +651,3 @@ I look forward to seeing how Astro DB develops. One thing I would need for my pr
 - https://docs.astro.build/en/guides/deploy/vercel/
 - https://docs.astro.build/en/guides/astro-db/
 - https://docs.astro.build/en/recipes/studio/
-
-

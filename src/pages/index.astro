@@ -4,31 +4,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = 'Thomas McInnis';
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-    <section class='entry'>
-        <h1 class='h1'>Hi, I'm Thomas</h1>
-        <p>
-            I am the co-founder of <a
-                href='https://www.metric.coach target='
-                _blank'>Metric VBT</a
-            >.
-        </p>
-        <p>
-            Drop me a message on <a
-                href='https://www.twitter.com/tommy_mcinnis'
-                target='_blank'>Twitter</a
-            > or <a
-                href='https://www.linkedin.com/in/thomasmcinnis/'
-                target='_blank'>LinkedIn</a
-            >.
-        </p>
-    </section>
-    <section class='contact'>
-        <h2 class='h4'>Contact</h2>
-        <p>hey@thomasmcinnis.com</p>
-    </section>
-    <section class='posts'>
-        <h2 class='h4'>Blog</h2>
-        <BlogList />
-    </section>
+<BaseLayout {pageTitle}>
+  <section class='entry'>
+    <h1 class='h1'>Hi, I'm Thomas</h1>
+    <p>
+      I am the co-founder of <a href='https://www.metric.coach' target='_blank'
+        >Metric VBT</a
+      >.
+    </p>
+    <p>
+      Drop me a message on <a
+        href='https://www.twitter.com/tommy_mcinnis'
+        target='_blank'>Twitter</a
+      > or <a href='https://www.linkedin.com/in/thomasmcinnis/' target='_blank'
+        >LinkedIn</a
+      >.
+    </p>
+  </section>
+  <section class='contact'>
+    <h2 class='h4'>Contact</h2>
+    <p>hey@thomasmcinnis.com</p>
+  </section>
+  <section class='posts'>
+    <h2 class='h4'>Blog</h2>
+    <BlogList />
+  </section>
 </BaseLayout>

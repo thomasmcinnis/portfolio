@@ -5,11 +5,11 @@ const posts = await getCollection('posts');
 ---
 
 <ul>
-    {
-        posts.map((p) => (
-            <li>
-                <a href={`/posts/${p.slug}`}>{p.data.title}</a>
-            </li>
-        ))
-    }
+  {
+    posts.map((p) => (
+      <li>
+        <a href={`/posts/${p.slug}`}>{p.data.title}</a>
+      </li>
+    ))
+  }
 </ul>

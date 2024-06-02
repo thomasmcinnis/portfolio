@@ -95,9 +95,9 @@ Using the GitHub CLI you can generate a public gist from a local file and have t
 gh gist create myLocalFile.ts -p -w -d "My Typescript file that isn't working"
 ```
 
--   The `-p` flag means it will be a public gist
--   The `-w` flag means the url will open in your browser
--   The `-d` flag and subsequent text adds that text description to the gist
+- The `-p` flag means it will be a public gist
+- The `-w` flag means the url will open in your browser
+- The `-d` flag and subsequent text adds that text description to the gist
 
 Instead of sharing a whole file, you could share just some code from your clipboard. With the commands below we create a new temp file from your clipboard content, run the create gist command, and remove the temp file.
 
