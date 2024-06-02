@@ -2,14 +2,51 @@
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('posts');
+const sortedPosts = posts.sort(
+  (a, b) => Number(b.data.pubDate) - Number(a.data.pubDate),
+);
 ---
 
 <ul>
   {
-    posts.map((p) => (
+    sortedPosts.map((p) => (
       <li>
-        <a href={`/posts/${p.slug}`}>{p.data.title}</a>
+        <a href={`/posts/${p.slug}`}>
+          <h3>{p.data.title}</h3>
+          <p>
+            <time datetime={p.data.pubDate.toISOString()}>
+              {p.data.pubDate.toDateString()}
+            </time>
+          </p>
+        </a>
       </li>
     ))
   }
 </ul>
+
+<style>
+  ul {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+  li {
+    padding: 0.5rem 0;
+  }
+  h3 {
+    font-weight: 600;
+  }
+  a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    border: none;
+
+    &:hover {
+      color: hsl(var(--accent));
+    }
+  }
+  p {
+    color: hsl(var(--muted));
+    font-size: var(--fs-xs);
+  }
+</style>

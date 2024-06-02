@@ -51,12 +51,12 @@ select {
   --bkg--light: var(--_hue-secondary) 25% 95%;
   --txt--light: var(--_hue-primary) 40% 5%;
   --accent--light: var(--_hue-primary) 70% 60%;
-  --muted--light: var(--_hue-secondary) 20% 93%;
+  --muted--light: var(--_hue-primary) 5% 40%;
   /* Dark Mode */
   --bkg--dark: var(--_hue-secondary) 15% 10%;
   --txt--dark: var(--_hue-primary) 15% 90%;
   --accent--dark: var(--_hue-primary) 80% 70%;
-  --muted--dark: var(--_hue-secondary) 15% 15%;
+  --muted--dark: var(--_hue-primary) 15% 70%;
 
   --bkg: var(--bkg--light);
   --txt: var(--txt--light);
@@ -193,9 +193,9 @@ code {
 
 :not(pre) > code {
   color: hsl(var(--accent));
-  background-color: hsl(var(--muted));
-  border-radius: 4px;
-  padding: 0 4px;
+  background-color: hsl(var(--muted) / 0.1);
+  border-radius: 3px;
+  padding: 2px 4px;
 }
 
 pre {
@@ -287,9 +287,9 @@ article.entry > * {
 
   & ol,
   ul {
-    padding-inline-start: 2rem;
-    margin-block-start: -0.5em;
-    margin-block-end: 1.5em;
+    padding-inline-start: 1em;
+    margin-block-start: -1em;
+    margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
   }
