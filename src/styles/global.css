@@ -307,8 +307,12 @@ article.entry > * {
     margin-block-end: 1.5em;
     padding: 0.5rem 2rem;
     color: hsl(var(--accent));
-    background-color: hsl(var(--muted));
+    background-color: hsl(var(--muted) / 0.05);
     border-left: 0.25rem solid hsl(var(--accent));
+
+    & p {
+      margin-block-end: 0;
+    }
   }
 
   & pre {

@@ -3,7 +3,7 @@ title: The Javascript decorator-singleton pattern... pattern
 pubDate: 2024-02-02
 description: A neat way to combine two design patterns
 tags: ['Javascript', 'Design patterns']
-isDraft: true
+isDraft: false
 slug: decorator-singleton-pattern
 ---
 

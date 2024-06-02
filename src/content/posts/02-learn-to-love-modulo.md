@@ -3,7 +3,7 @@ title: A dumb image slider with Javascript (or how I learnt to love modulo)
 pubDate: 2024-03-22
 description: Learning modulo by making something kind of stupid
 tags: ['Javascript']
-isDraft: true
+isDraft: false
 slug: learn-to-love-modulo
 ---
 

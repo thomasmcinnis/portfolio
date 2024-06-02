@@ -3,7 +3,7 @@ title: Implement Lucia email auth with Astro DB on Vercel
 pubDate: 2024-04-22
 description: Getting familiar with Lucia auth and the new Astro DB
 tags: ['Astro', 'Lucia', 'Vercel']
-isDraft: true
+isDraft: false
 slug: lucia-auth-astro-db
 ---
 
@@ -497,7 +497,8 @@ export async function POST(context: APIContext): Promise<Response> {
 }
 ```
 
-It also makes sense to adjust the last line of the sign-up api endpoint to redirect to this dashboard page on success.
+It also makes sense to adjust the last line of the sign-up api endpoint to
+redirect to this dashboard page on success.
 
 ```ts
 // src/pages/api/signup.ts
@@ -642,12 +643,12 @@ I look forward to seeing how Astro DB develops. One thing I would need for my pr
 
 ### References
 
-- https://lucia-auth.com/
-- https://thecopenhagenbook.com/
-- https://github.com/lucia-auth/examples/tree/main/astro/username-and-password
-- https://github.com/ElianCodes/lucia-astrodb
-- https://github.com/pilcrowOnPaper/lucia-adapter-astrodb
-- https://docs.astro.build/en/guides/integrations-guide/vercel/
-- https://docs.astro.build/en/guides/deploy/vercel/
-- https://docs.astro.build/en/guides/astro-db/
-- https://docs.astro.build/en/recipes/studio/
+- [lucia-auth.com](https://lucia-auth.com/)
+- [thecopenhagenbook.com](https://thecopenhagenbook.com/)
+- [github.com/lucia-auth/astro-example](https://github.com/lucia-auth/examples/tree/main/astro/username-and-password)
+- [github.com/ElianCodes/lucia-astrodb](https://github.com/ElianCodes/lucia-astrodb)
+- [github.com/pilcrowOnPaper/lucia-adapter-astrodb](https://github.com/pilcrowOnPaper/lucia-adapter-astrodb)
+- [docs.astro.build/integrations-guide/vercel](https://docs.astro.build/en/guides/integrations-guide/vercel/)
+- [docs.astro.build/guides/deploy/vercel](https://docs.astro.build/en/guides/deploy/vercel/)
+- [docs.astro.build/guides/astro-db](https://docs.astro.build/en/guides/astro-db/)
+- [docs.astro.build/recipes/studio](https://docs.astro.build/en/recipes/studio/)

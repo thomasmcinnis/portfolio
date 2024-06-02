@@ -3,7 +3,7 @@ title: Add new repos to GitHub without leaving the terminal
 pubDate: 2023-12-19
 description: It took me a surprisingly long time to explore the GitHub CLI.
 tags: ['git', 'GitHub']
-isDraft: true
+isDraft: false
 slug: github-cli
 ---
 
