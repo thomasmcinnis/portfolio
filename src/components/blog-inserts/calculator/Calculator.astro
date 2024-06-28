@@ -1,0 +1,90 @@
+---
+import './calculator.css';
+
+const operators = [
+  ['/', '÷'],
+  ['*', '×'],
+  ['-', '-'],
+  ['+', '+'],
+  ['=', '='],
+];
+const numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3];
+---
+
+<div class='calculator'>
+  <div class='calc-head'>
+    <div class='head-border'>
+      <div class='machine-mark'></div>
+      <div class='machine-mark'></div>
+    </div>
+    <div class='head-content'>
+      <p class='model-number'>TE-FX877</p>
+      <p>10-DIGIT CALCULATOR</p>
+    </div>
+    <div class='head-border'>
+      <div class='machine-mark'></div>
+      <div class='machine-mark'></div>
+    </div>
+  </div>
+  <div class='screen'>
+    <div class='glare'></div>
+    <div class='display'>
+      <div class='display-top'>
+        <img class='battery' src='battery.svg' alt='battery indicator' />
+      </div>
+      <div class='interface'>
+        <p class='interface-text'>0</p>
+      </div>
+      <div class='display-bottom'>
+        <img class='detail' src='detail.svg' alt='alert indicator' />
+      </div>
+    </div>
+  </div>
+  <div class='pad-wrapper'>
+    <div class='pad-cmd'>
+      <div class='btn-socket'>
+        <div class='btn orange' id='clear'>AC</div>
+      </div>
+      <div class='btn-socket'>
+        <div class='btn grey' id='±'>±</div>
+      </div>
+      <div class='btn-socket'>
+        <div class='btn grey' id='%'>%</div>
+      </div>
+    </div>
+    <div class='pad-operators'>
+      {
+        operators.map((o) => (
+          <div class='btn-socket'>
+            <div class='btn' id={o[0]}>
+              {o[1]}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class='pad-num-grid'>
+      <div class='pad-num-row'>
+        <div class='btn-socket'>
+          <div class='btn' id='point'>.</div>
+        </div>
+        <div class='btn-socket long'>
+          <div class='btn' id='0'>0</div>
+        </div>
+      </div>
+      <div class='pad-num-row main'>
+        {
+          numbers.map((n) => (
+            <div class='btn-socket'>
+              <div class='btn' id={n.toString()}>
+                {n}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src='./calculator.js'></script>

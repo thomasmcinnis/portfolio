@@ -1,0 +1,278 @@
+@font-face {
+  font-family: 'Calculator';
+  src: url('/fonts/Calculator.ttf');
+}
+@font-face {
+  font-family: 'SometypeMono';
+  src: url('/fonts/SometypeMono-Regular.ttf');
+}
+
+.calculator {
+  --font-xs: 0.875rem;
+  --font-sm: 1rem;
+  --font-md: 1.5rem;
+  --font-lg: 2rem;
+  --font-xl: 3rem;
+
+  --btn-size: 5rem;
+  --gap-keypad: 0.75rem;
+
+  --calc-width: calc((var(--btn-size) * 4) + (var(--gap-keypad) * 7));
+
+  --theme-background: rgb(216, 212, 212);
+  --theme-matt-black: rgb(20, 20, 20);
+  --theme-pure-black: rgb(3, 3, 3);
+  --theme-light-grey: rgb(192, 189, 189);
+  --theme-dark-grey: rgb(128, 128, 128);
+  --theme-orange: rgb(220, 84, 47);
+  --theme-label-light: rgb(245, 245, 240);
+  --theme-label-dark: rgb(45, 45, 45);
+  --theme-highlight: 240, 240, 240;
+
+  --shadow-color: 0deg 0% 70%;
+
+  --shadow-button: 0.3rem 0.3rem 1rem 0 rgba(0, 0, 0, 0.15),
+    0.1rem 0.3rem 0.8rem 0 rgba(0, 0, 0, 0.2),
+    0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.7),
+    0.2rem 0.2rem 0.5rem 0 rgba(240, 240, 240, 0.15) inset,
+    0.1rem 0.1rem 0.2rem 0.1rem rgba(240, 240, 240, 0.05) inset;
+
+  --shadow-button-clicked: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.2),
+    0.2rem 0.2rem 0.5rem 0 rgba(240, 240, 240, 0.15) inset,
+    0.1rem 0.1rem 0.2rem 0.1rem rgba(240, 240, 240, 0.05) inset;
+
+  --shadow-screen: 0.3rem 0.6rem 0.5rem 0 rgba(0, 0, 0, 0.15),
+    0.1rem 0.2rem 0.5rem 0 rgba(100, 100, 100, 0.4),
+    0.1rem 0.2rem 0.4rem 0.1rem rgba(80, 80, 80, 0.5),
+    0rem 0rem 0.02rem 0.4rem rgba(240, 240, 240, 0.04) inset;
+
+  --shadow-body: 0.3px 0.7px 0.8px hsl(var(--shadow-color) / 0.39),
+    1.2px 3.3px 3.6px -0.4px hsl(var(--shadow-color) / 0.37),
+    2.3px 6.3px 6.9px -0.9px hsl(var(--shadow-color) / 0.35),
+    4.1px 10.9px 12px -1.3px hsl(var(--shadow-color) / 0.33),
+    6.8px 18.3px 20.1px -1.8px hsl(var(--shadow-color) / 0.31),
+    11.1px 29.8px 32.7px -2.2px hsl(var(--shadow-color) / 0.29),
+    17.4px 46.5px 51px -2.7px hsl(var(--shadow-color) / 0.27),
+    26px 69.7px 76.4px -3.1px hsl(var(--shadow-color) / 0.25);
+
+  --border-button: 0.05rem solid rgba(var(--theme-highlight), 0.4);
+
+  --shadow-machine-mark: 0.03rem 0.03rem 0.1rem 0 rgba(71, 71, 71, 0.3) inset,
+    -0.03rem -0.03rem 0.1rem 0 rgba(250, 250, 250, 0.75) inset;
+
+  font-family: 'SometypeMono';
+  max-width: var(--calc-width);
+  padding: calc(var(--gap-keypad) * 2);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-background);
+  border-radius: 0.1rem;
+  box-shadow: var(--shadow-body);
+  color: var(--theme-label-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .calculator {
+    --shadow-color: 0deg 0% 0%;
+    --theme-background: rgb(180, 178, 178);
+  }
+}
+
+.calc-head {
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  padding-bottom: 0.5rem;
+}
+
+.calc-head .model-number {
+  font-size: var(--font-md);
+  margin-bottom: 2.5rem;
+}
+
+.calc-head p {
+  font-size: var(--font-xs);
+}
+
+.head-border {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.head-content {
+  flex-grow: 1;
+  padding: 0 0.5rem;
+}
+
+.machine-mark {
+  height: 0.8725rem;
+  width: 0.8725rem;
+  border-radius: 100%;
+  box-shadow: var(--shadow-machine-mark);
+}
+
+.screen {
+  height: 8rem;
+  width: 100%;
+  background-color: var(--theme-matt-black);
+  color: var(--theme-label-light);
+  box-shadow: var(--shadow-screen);
+  border: var(--border-button);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.glare {
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0% 0%, 60% 0%, 20% 100%, 0% 100%);
+  background-image: linear-gradient(
+    0deg,
+    rgba(240, 240, 240, 0.003) 0 20%,
+    rgba(240, 240, 240, 0.08) 80% 100%
+  );
+  filter: blur(1px);
+}
+
+.display {
+  height: 100%;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-top,
+.display-bottom {
+  flex-basis: 0;
+  height: 1.5rem;
+}
+
+.display-bottom {
+  align-self: flex-end;
+}
+
+.interface {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  padding-top: 0.75rem;
+}
+
+.interface-text {
+  font-family: 'Calculator', monospace;
+  font-size: var(--font-md);
+  color: var(--theme-light-grey);
+  overflow: hidden;
+  line-height: 1.5;
+  white-space: nowrap;
+  letter-spacing: -0.4rem;
+}
+
+.pad-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: var(--gap-keypad);
+  height: fit-content;
+  width: fit-content;
+}
+
+.pad-num-grid {
+  grid-row: 2 / 6;
+  grid-column: 1 / 4;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  gap: var(--gap-keypad);
+}
+
+.pad-cmd {
+  grid-column: 1 / 4;
+}
+
+.pad-num-row,
+.pad-cmd {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-keypad);
+}
+
+.pad-operators {
+  grid-column: 4 / 5;
+  grid-row: 1 / 6;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-keypad);
+}
+
+.btn-socket {
+  width: var(--btn-size);
+  height: var(--btn-size);
+  background-color: var(--theme-pure-black);
+  border-radius: 0.2rem;
+  padding: 0.1rem;
+  display: flex;
+}
+
+.btn-socket.long {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  width: 100%;
+}
+
+.btn {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.2rem 0 0;
+  background-color: var(--theme-light-grey);
+  color: var(--theme-label-dark);
+  font-size: var(--font-lg);
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  border-radius: 0.6rem;
+  border-top: var(--border-button);
+  border-left: var(--border-button);
+  box-shadow: var(--shadow-button);
+
+  &&:hover {
+    cursor: pointer;
+  }
+
+  &&:active {
+    box-shadow: var(--shadow-button-clicked);
+    /* font-size: calc(var(--font-lg) * 0.98); */
+    transform: scale(0.99);
+  }
+
+  &&.orange {
+    background-color: var(--theme-orange);
+    color: var(--theme-label-light);
+  }
+
+  &&.grey {
+    background-color: var(--theme-dark-grey);
+    color: var(--theme-label-light);
+  }
+
+  &&.black {
+    background-color: var(--theme-matt-black);
+    color: var(--theme-label-light);
+  }
+}
+
+.pad-num-grid .btn {
+  background-color: var(--theme-matt-black);
+  color: var(--theme-label-light);
+}
