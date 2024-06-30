@@ -28,14 +28,11 @@ const sortedPosts = posts.sort(
 
 <style>
   ul {
-    list-style: none;
-    padding-inline-start: 0;
+    list-style-type: '↳ ';
+    padding-inline-start: 2ch;
   }
   li {
     padding: 0.5rem 0;
-  }
-  h3 {
-    font-weight: 600;
   }
   a {
     display: flex;
@@ -49,6 +46,5 @@ const sortedPosts = posts.sort(
   }
   p {
     color: hsl(var(--muted));
-    font-size: var(--fs-xs);
   }
 </style>

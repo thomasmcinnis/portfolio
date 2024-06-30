@@ -15,7 +15,7 @@ import detailImage from './detail.svg';
 ---
 
 <div class='slider-container'>
-  <label for='slider'>Rotate Visibility:</label>
+  <label for='slider'>Adjust Glare</label>
   <input type='range' id='slider' min='0' max='100' value='0' step='1' />
 </div>
 
@@ -52,20 +52,20 @@ import detailImage from './detail.svg';
   <div class='pad-wrapper'>
     <div class='pad-cmd'>
       <div class='btn-socket'>
-        <div class='btn orange' id='clear'>AC</div>
+        <div class='btn orange' data-value='clear'>AC</div>
       </div>
       <div class='btn-socket'>
-        <div class='btn grey' id='±'>±</div>
+        <div class='btn grey' data-value='±'>±</div>
       </div>
       <div class='btn-socket'>
-        <div class='btn grey' id='%'>%</div>
+        <div class='btn grey' data-value='%'>%</div>
       </div>
     </div>
     <div class='pad-operators'>
       {
         operators.map((o) => (
           <div class='btn-socket'>
-            <div class='btn' id={o[0]}>
+            <div class='btn' data-value={o[0]}>
               {o[1]}
             </div>
           </div>
@@ -75,17 +75,17 @@ import detailImage from './detail.svg';
     <div class='pad-num-grid'>
       <div class='pad-num-row'>
         <div class='btn-socket'>
-          <div class='btn' id='point'>.</div>
+          <div class='btn' data-value='.'>.</div>
         </div>
         <div class='btn-socket long'>
-          <div class='btn' id='0'>0</div>
+          <div class='btn' data-value='0'>0</div>
         </div>
       </div>
       <div class='pad-num-row main'>
         {
           numbers.map((n) => (
             <div class='btn-socket'>
-              <div class='btn' id={n.toString()}>
+              <div class='btn' data-value={n.toString()}>
                 {n}
               </div>
             </div>

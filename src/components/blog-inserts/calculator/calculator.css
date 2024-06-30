@@ -8,6 +8,7 @@
 }
 
 .calculator {
+  margin-bottom: 4em;
   --font-xs: 0.875rem;
   --font-sm: 1rem;
   --font-md: 1.5rem;

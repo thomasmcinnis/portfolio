@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/fonts/IBMPlexSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-Regular.ttf');
+}
+
 /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
@@ -44,164 +54,59 @@ select {
 /* Global variables */
 :root {
   /* Colours */
-  --_hue-primary: 345;
-  --_hue-secondary: 260;
+  --_hue-primary: 257;
 
   /* Light Mode */
-  --bkg--light: var(--_hue-secondary) 25% 95%;
-  --txt--light: var(--_hue-primary) 40% 5%;
-  --accent--light: var(--_hue-primary) 70% 60%;
-  --muted--light: var(--_hue-primary) 5% 40%;
+  --bg--light: var(--_hue-primary) 30% 95%;
+  --txt--light: var(--_hue-primary) 15% 10%;
+  --muted--light: var(--_hue-primary) 5% 50%;
+  --accent--light: var(--_hue-primary) 40% 45%;
   /* Dark Mode */
-  --bkg--dark: var(--_hue-secondary) 15% 10%;
-  --txt--dark: var(--_hue-primary) 15% 90%;
-  --accent--dark: var(--_hue-primary) 80% 70%;
-  --muted--dark: var(--_hue-primary) 15% 70%;
+  --bg--dark: var(--_hue-secondary) 20% 15%;
+  --txt--dark: var(--_hue-primary) 30% 95%;
+  --muted--dark: var(--_hue-primary) 5% 55%;
+  --accent--dark: var(--_hue-primary) 50% 70%;
 
-  --bkg: var(--bkg--light);
+  --bg: var(--bg--light);
   --txt: var(--txt--light);
-  --accent: var(--accent--light);
   --muted: var(--muted--light);
+  --accent: var(--accent--light);
   color-scheme: light; /* See further down for @media prefers dark */
 
   /* Fonts */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 
-  --font-mono: Menlo, Monaco, 'Lucida Console', 'Liberation Mono',
-    'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+  --font-mono: 'IBM Plex Mono', Menlo, Monaco, 'Lucida Console',
+    'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
 
   /* Font sizing */
-  --font-base: 1rem;
-  --scale: 1.125;
-
-  --fs-p: var(--font-base);
-  --fs-xs: calc(var(--font-base) / var(--scale));
-  --fs-h6: calc(var(--font-base) * var(--scale));
-  --fs-h5: calc(var(--fs-h6) * var(--scale));
-  --fs-h4: calc(var(--fs-h5) * var(--scale));
-  --fs-h3: calc(var(--fs-h4) * var(--scale));
-  --fs-h2: calc(var(--fs-h3) * var(--scale));
-  --fs-h1: calc(var(--fs-h2) * var(--scale));
+  --step--2: clamp(0.7901rem, 0.7558rem + 0.1718vi, 0.8889rem);
+  --step--1: clamp(0.8889rem, 0.8502rem + 0.1932vi, 1rem);
+  --step-0: clamp(1rem, 0.9565rem + 0.2174vi, 1.125rem);
+  --step-1: clamp(1.125rem, 1.0761rem + 0.2446vi, 1.2656rem);
+  --step-2: clamp(1.2656rem, 1.2106rem + 0.2751vi, 1.4238rem);
+  --step-3: clamp(1.4238rem, 1.3619rem + 0.3095vi, 1.6018rem);
+  --step-4: clamp(1.6018rem, 1.5322rem + 0.3482vi, 1.802rem);
+  --step-5: clamp(1.802rem, 1.7237rem + 0.3917vi, 2.0273rem);
 
   /* Sizing */
   --_padding-base: 1rem;
 
   --padding-min: var(--_padding-base);
   --wide-max-width: 60rem;
-  --narrow-max-width: 42rem;
+  --narrow-max-width: 55ch;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bkg: var(--bkg--dark);
+    --bg: var(--bg--dark);
     --txt: var(--txt--dark);
     --accent: var(--accent--dark);
     --muted: var(--muted--dark);
     color-scheme: dark;
   }
-}
-
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-  font-weight: 400;
-  font-size: var(--fs-h6);
-}
-
-body {
-  font-family: var(--font-sans);
-  font-size: var(--fs-h6);
-  line-height: 1.6;
-  color: hsl(var(--txt));
-  background-color: hsl(var(--bkg));
-  min-height: 100vh;
-  padding-top: var(--padding-min);
-  padding-bottom: var(--padding-min);
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-}
-
-ul {
-  list-style-type: '-  ';
-  padding-inline-start: 1em;
-}
-
-li::marker {
-  font-weight: 700;
-  color: hsl(var(--accent));
-  margin-right: 1em;
-}
-
-li:not(:last-child) {
-  margin-block-end: 0.5em;
-}
-
-a {
-  color: hsl(var(--txt));
-  text-decoration: none;
-  border-bottom: 1px solid;
-  border-color: hsl(var(--accent));
-  padding-bottom: 2px;
-  font-weight: 700;
-}
-
-.h6,
-.h5,
-.h4,
-.h3,
-.h2,
-.h1 {
-  font-weight: 700;
-  margin: calc(var(--font-base) / 2) 0;
-  line-height: 1.2em;
-}
-.h6 {
-  font-size: var(--fs-h6);
-}
-.h5 {
-  font-size: var(--fs-h5);
-}
-.h4 {
-  font-size: var(--fs-h4);
-}
-.h3 {
-  font-size: var(--fs-h3);
-}
-.h2 {
-  font-size: var(--fs-h2);
-}
-.h1 {
-  font-size: var(--fs-h1);
-}
-
-code {
-  font-family: var(--font-mono);
-  font-size: var(--fs-p);
-}
-
-:not(pre) > code {
-  color: hsl(var(--accent));
-  background-color: hsl(var(--muted) / 0.1);
-  border-radius: 3px;
-  padding: 2px 4px;
-}
-
-pre {
-  padding: 1.5rem 1rem;
-  border-radius: 0.25rem;
-  line-height: 1.3;
 }
 
 /* Defining a content grid */
@@ -238,47 +143,102 @@ pre {
   grid-template-columns: inherit;
 }
 
-/* Long form content styling */
-article.entry > * {
-  grid-column: narrow !important;
+body {
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: hsl(var(--txt));
+  background-color: hsl(var(--bg));
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
-.entry {
-  & h6,
-  h5,
-  h4,
-  h3,
-  h2,
-  h1 {
-    font-weight: 700;
-    margin: var(--font-base) 0;
-    line-height: 1.2em;
-  }
-  & h6 {
-    font-size: var(--fs-h6);
-  }
-  & h5 {
-    font-size: var(--fs-h5);
-  }
-  & h4 {
-    font-size: var(--fs-h4);
-  }
-  & h3 {
-    font-size: var(--fs-h3);
-  }
-  & h2 {
-    font-size: var(--fs-h2);
-  }
-  & h1 {
-    font-size: var(--fs-h1);
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--step-0);
+}
 
+ul {
+  list-style-type: '-  ';
+  padding-inline-start: 1em;
+}
+
+li::marker {
+  margin-right: 1em;
+}
+
+a {
+  color: hsl(var(--txt));
+  text-underline-offset: 4px;
+  text-decoration-color: hsl(var(--muted));
+
+  &:hover {
+    text-decoration-color: hsl(var(--accent));
+  }
+}
+
+/* Code block styling */
+code {
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+}
+
+:not(pre) > code {
+  color: hsl(var(--accent));
+  background-color: hsl(var(--muted) / 0.15);
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+
+pre {
+  padding: 1.5rem 1rem;
+  border-radius: 0.25rem;
+  line-height: 1.3;
+}
+
+/* Basic style utility classes */
+.muted {
+  color: hsl(var(--muted));
+}
+
+/* Long form content styling */
+.flow {
   & p {
     margin-block-end: 1.5em;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-block-end: 1em;
+    line-height: 1.1em;
+    text-wrap: pretty;
+
+    &:not(:first-child) {
+      margin-block-start: 2em;
+    }
+  }
+
+  h1 {
+    font-size: var(--step-4);
+  }
+  h2 {
+    font-size: var(--step-3);
+  }
+  h3 {
+    font-size: var(--step-2);
+  }
+
   & strong {
-    font-weight: 600;
+    font-weight: bold;
   }
 
   & em {
@@ -292,10 +252,6 @@ article.entry > * {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-  }
-
-  & p:has(img) {
-    grid-column: wide !important;
   }
 
   & figcaption {

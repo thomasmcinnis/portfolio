@@ -5,28 +5,61 @@ const pageTitle = 'Thomas McInnis';
 ---
 
 <BaseLayout {pageTitle}>
-  <section class='entry'>
-    <h1 class='h1'>Hi, I'm Thomas</h1>
-    <p>
-      I am the co-founder of <a href='https://www.metric.coach' target='_blank'
-        >Metric VBT</a
-      >.
-    </p>
-    <p>
-      Drop me a message on <a
-        href='https://www.twitter.com/tommy_mcinnis'
-        target='_blank'>Twitter</a
-      > or <a href='https://www.linkedin.com/in/thomasmcinnis/' target='_blank'
-        >LinkedIn</a
-      >.
-    </p>
-  </section>
-  <section class='contact'>
-    <h2 class='h4'>Contact</h2>
-    <p>hey@thomasmcinnis.com</p>
-  </section>
-  <section class='posts'>
-    <h2 class='h4'>Blog</h2>
-    <BlogList />
-  </section>
+  <div class='grid'>
+    <article>
+      <section class='heading'>
+        <h1>{pageTitle}</h1>
+        <h2 class='muted'>Frontend Developer</h2>
+      </section>
+      <section class='about'>
+        <p>
+          Co-founder of <a href='https://www.metric.coach'>Metric VBT</a>.
+          Originally a non-technical team member, I built the frontend SPA with
+          React for the project. Now transitioning to a software engineering
+          career in Sydney, Australia.
+        </p>
+      </section>
+      <section class='contact'>
+        <p>
+          Connect with me on <a href='https://www.x.com/tommy_mcinnis'
+            >the hell site</a
+          > or <a href='https://www.linkedin.com/in/thomasmcinnis/'
+            >the other hell site</a
+          >.
+        </p>
+        <p>hey@thomasmcinnis.com</p>
+      </section>
+    </article>
+    <section class='posts'>
+      <h2>Blog</h2>
+      <BlogList />
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    & p {
+      text-wrap: pretty;
+    }
+  }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(clamp(16rem, 50vw, 26rem), 1fr)
+    );
+  }
+</style>

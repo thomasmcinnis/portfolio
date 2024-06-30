@@ -1,9 +1,10 @@
-const buttons = document.getElementsByClassName('btn');
+const buttons = document.querySelector('.pad-wrapper');
 
-Array.from(buttons).forEach((button) => {
-  button.addEventListener('click', () => {
-    handleClick(button.id);
-  });
+buttons.addEventListener('click', ({ target }) => {
+  const button = target.closest('[data-value]');
+  if (!button) return;
+  const value = button.dataset.value;
+  handleClick(value);
 });
 
 const textField = document.querySelector('.interface-text');

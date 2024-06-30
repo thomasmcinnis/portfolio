@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import Menu from '../components/Menu.astro';
 
 const { pageTitle } = Astro.props;
 ---
@@ -14,16 +13,14 @@ const { pageTitle } = Astro.props;
     <title>{pageTitle}</title>
   </head>
   <body>
-    <Menu />
     <main class='content-grid'>
       <slot />
     </main>
-    <script></script>
   </body>
 </html>
 
 <style>
   main {
-    row-gap: 3rem;
+    margin: 6rem 0;
   }
 </style>
