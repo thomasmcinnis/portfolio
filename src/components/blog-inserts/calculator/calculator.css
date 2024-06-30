@@ -144,7 +144,7 @@
 
 .display {
   height: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   display: flex;
   flex-direction: column;
 }
@@ -157,13 +157,19 @@
 
 .display-bottom {
   align-self: flex-end;
+  display: flex;
+  gap: 1px;
 }
 
+/* img { */
+/*   border: 1px solid red; */
+/* } */
+
 .interface {
+  flex-grow: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 100%;
   padding-top: 0.75rem;
 }
 
