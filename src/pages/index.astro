@@ -41,22 +41,23 @@ const pageTitle = 'Thomas McInnis';
   article {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: var(--space-l-xl);
 
     & p {
       text-wrap: pretty;
+      max-width: 50ch;
     }
   }
 
   .contact {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-xs-s);
   }
 
   .grid {
     display: grid;
-    gap: 3rem;
+    gap: var(--space-xl-2xl);
     grid-template-columns: repeat(
       auto-fit,
       minmax(clamp(16rem, 50vw, 26rem), 1fr)

@@ -95,8 +95,28 @@ select {
   --_padding-base: 1rem;
 
   --padding-min: var(--_padding-base);
-  --wide-max-width: 60rem;
-  --narrow-max-width: 55ch;
+  --wide-max-width: 70rem;
+  --narrow-max-width: 60ch;
+
+  --space-3xs: clamp(0.25rem, 0.225rem + 0.125vi, 0.3125rem);
+  --space-2xs: clamp(0.5rem, 0.475rem + 0.125vi, 0.5625rem);
+  --space-xs: clamp(0.75rem, 0.7rem + 0.25vi, 0.875rem);
+  --space-s: clamp(1rem, 0.95rem + 0.25vi, 1.125rem);
+  --space-m: clamp(1.5rem, 1.425rem + 0.375vi, 1.6875rem);
+  --space-l: clamp(2rem, 1.9rem + 0.5vi, 2.25rem);
+  --space-xl: clamp(3rem, 2.85rem + 0.75vi, 3.375rem);
+  --space-2xl: clamp(4rem, 3.8rem + 1vi, 4.5rem);
+  --space-3xl: clamp(6rem, 5.7rem + 1.5vi, 6.75rem);
+
+  /* One-up pairs */
+  --space-3xs-2xs: clamp(0.25rem, 0.125rem + 0.625vi, 0.5625rem);
+  --space-2xs-xs: clamp(0.5rem, 0.35rem + 0.75vi, 0.875rem);
+  --space-xs-s: clamp(0.75rem, 0.6rem + 0.75vi, 1.125rem);
+  --space-s-m: clamp(1rem, 0.725rem + 1.375vi, 1.6875rem);
+  --space-m-l: clamp(1.5rem, 1.2rem + 1.5vi, 2.25rem);
+  --space-l-xl: clamp(2rem, 1.45rem + 2.75vi, 3.375rem);
+  --space-xl-2xl: clamp(3rem, 2.4rem + 3vi, 4.5rem);
+  --space-2xl-3xl: clamp(4rem, 2.9rem + 5.5vi, 6.75rem);
 }
 
 @media (prefers-color-scheme: dark) {
